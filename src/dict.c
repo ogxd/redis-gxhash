@@ -103,11 +103,13 @@ uint8_t *dictGetHashFunctionSeed(void) {
 /* The default hashing function uses SipHash implementation
  * in siphash.c. */
 
+uint64_t gxhash(const uint8_t* input, int len);
 uint64_t siphash(const uint8_t *in, const size_t inlen, const uint8_t *k);
 uint64_t siphash_nocase(const uint8_t *in, const size_t inlen, const uint8_t *k);
 
 uint64_t dictGenHashFunction(const void *key, size_t len) {
-    return siphash(key,len,dict_hash_function_seed);
+    //return siphash(key,len,dict_hash_function_seed);
+    return gxhash(key, len);
 }
 
 uint64_t dictGenCaseHashFunction(const unsigned char *buf, size_t len) {
